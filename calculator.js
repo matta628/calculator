@@ -37,12 +37,8 @@ function addDigits(button){
     if (display.innerText === '0'){
         display.innerText = button.innerText;
     }
-    else if (+display.innerText === +display.innerText){
-        //if it's a number.. append
+    else {
         display.innerText += button.innerText;
-    }
-    else{
-        display.innerText = '0';
     }
 }
 const digitButtons = document.querySelectorAll('button.digit');
