@@ -24,7 +24,8 @@ function operate(op, op1, op2){
             result = multiply(op1,op2);
             break;
         case '/':
-            result = divide(op1,op2);
+            result = (op2 === 0) ? "Nice try..." : divide(op1,op2);
+//            result = divide(op1,op2);
             break;
         default:
             result = "wot tha fuck you doing mate";
@@ -33,16 +34,15 @@ function operate(op, op1, op2){
 }
 
 let startNewNumber = true;
-let equalsPressed = false;
-let lhs = null;
-let rhs = null;
+let newInput = false;
+let runningTotal = null;
 let operator = null;
 let decimalPlaces = 10;
 
 const display = document.querySelector('.display');
 
 function roundedResults(lhs){
-    if (Math.round(+lhs * 10) / 10 === +lhs){
+    if (Math.round(+lhs * 10) / 10 === +lhs || typeof lhs != "number"){
         return lhs;
     }
     return lhs.toFixed(decimalPlaces);
@@ -50,42 +50,11 @@ function roundedResults(lhs){
 
 function evaluate(button){
     startNewNumber = true;
-    if (equalsPressed) {
-        rhs = 0;
-        equalsPressed = false;
-    }
 
-    if (lhs === null){ //need left side
-        lhs = +display.innerText;
-    }
-    else{ //don't need left side
-        if (rhs === null){ //need right side
-            rhs = +display.innerText;
-        }
-    }
-    
-    if (operator !== null){ //save result so far
-        lhs = operate(operator, lhs, rhs);
-        rhs = null;
-    }
-    display.innerText = roundedResults(lhs);
-    operator = button.innerText;
-    console.log(`lhs=${lhs}\top=${operator}\trhs=${rhs}`);
 }
 
 function equals(){
-    startNewNumber = true;
-    equalsPressed = true;
 
-    if (lhs === null) return;
-    if (rhs === null){
-        if (display.innerText !== ''){
-            rhs = +display.innerText;
-        }
-    }
-    lhs = operate(operator, lhs, rhs);
-    display.innerText = roundedResults(lhs);
-    console.log(`lhs=${lhs}\top=${operator}\trhs=${rhs}`);
 }
 
 function addDigits(button){
@@ -100,7 +69,7 @@ function addDigits(button){
 
 function clearDisplay(){
     display.innerText = '';
-    lhs = null;
+    runningTotal = null;
     rhs = null;
     operator = null;
     startNewNumber = true;
