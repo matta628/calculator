@@ -10,7 +10,7 @@ body{
 .title{
     color : #96E5D1;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 900;
     font-family : 'Courier New', Courier, monospace;
 }
 .calculator{
@@ -45,6 +45,7 @@ body{
     gap: 10px;
 }
 button {
+    font-weight: 900;
     background-color: #FD841F;
     flex: 1;
 }
