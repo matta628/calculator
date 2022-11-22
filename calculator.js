@@ -33,14 +33,27 @@ function operate(op, op1, op2){
 }
 
 let startNewNumber = true;
+let equalsPressed = false;
 let lhs = null;
 let rhs = null;
 let operator = null;
+let decimalPlaces = 10;
 
 const display = document.querySelector('.display');
 
+function roundedResults(lhs){
+    if (Math.round(+lhs * 10) / 10 === +lhs){
+        return lhs;
+    }
+    return lhs.toFixed(decimalPlaces);
+}
+
 function evaluate(button){
     startNewNumber = true;
+    if (equalsPressed) {
+        rhs = 0;
+        equalsPressed = false;
+    }
 
     if (lhs === null){ //need left side
         lhs = +display.innerText;
@@ -55,12 +68,15 @@ function evaluate(button){
         lhs = operate(operator, lhs, rhs);
         rhs = null;
     }
-    display.innerText = lhs;
+    display.innerText = roundedResults(lhs);
     operator = button.innerText;
     console.log(`lhs=${lhs}\top=${operator}\trhs=${rhs}`);
 }
 
 function equals(){
+    startNewNumber = true;
+    equalsPressed = true;
+
     if (lhs === null) return;
     if (rhs === null){
         if (display.innerText !== ''){
@@ -68,7 +84,7 @@ function equals(){
         }
     }
     lhs = operate(operator, lhs, rhs);
-    display.innerText = lhs;
+    display.innerText = roundedResults(lhs);
     console.log(`lhs=${lhs}\top=${operator}\trhs=${rhs}`);
 }
 
