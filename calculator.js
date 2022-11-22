@@ -12,7 +12,7 @@ function divide(op1, op2){
 }
 
 function operate(op, op1, op2){
-    let result = 0;
+    let result;
     switch (op){
         case '+':
             result = add(op1,op2);
@@ -24,18 +24,20 @@ function operate(op, op1, op2){
             result = multiply(op1,op2);
             break;
         case '/':
-            result = (op2 === 0) ? "Nice try..." : divide(op1,op2);
+            result = (op2 === 0) ? "[REDACTED]" : divide(op1,op2);
 //            result = divide(op1,op2);
             break;
         default:
-            result = "wot tha fuck you doing mate";
+            result = "";
     }
+    result = roundedResults(result);
     return result;
 }
 
-let startNewNumber = true;
-let newInput = false;
-let runningTotal = null;
+let startNewNumber = false;
+let haveNewInput = false; //redundant?
+let stored = null;
+let operand = null;
 let operator = null;
 let decimalPlaces = 10;
 
@@ -49,12 +51,39 @@ function roundedResults(lhs){
 }
 
 function evaluate(button){
+    console.log(`${stored} ${operator} ${operand}`);
     startNewNumber = true;
+    if (haveNewInput){
+        if (stored === null){
+            stored = +display.innerText;
+        }
+        else{
+            operand = +display.innerText;
+            stored = operate(operator, stored, operand);
+            operand = null;
+        }
+        haveNewInput = false;
+    }
+    operator = button.innerText;
+    display.innerText = stored;
 
+    console.log(`${stored} ${operator} ${operand}`);
+    console.log('\n');
 }
 
 function equals(){
-
+    startNewNumber = true;
+    if (haveNewInput){
+        operand = +display.innerText;
+        stored = operate(operator, stored, operand);
+        haveNewInput = false;
+    }
+    else{
+        stored = operate(operator, stored, operand);
+    }
+    display.innerText = stored;
+    console.log(`${stored} ${operator} ${operand}`);
+    console.log('\n');
 }
 
 function addDigits(button){
@@ -65,14 +94,15 @@ function addDigits(button){
     else {
         display.innerText += button.innerText;
     }
+    haveNewInput = true;
 }
 
 function clearDisplay(){
     display.innerText = '';
-    runningTotal = null;
-    rhs = null;
+    stored = null;
+    operand = null;
     operator = null;
-    startNewNumber = true;
+    haveNewInput = false;
 }
 
 const operatorButtons = document.querySelectorAll('button.operator');
