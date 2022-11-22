@@ -39,7 +39,7 @@ let haveNewInput = false; //redundant?
 let stored = null;
 let operand = null;
 let operator = null;
-let decimalPlaces = 10;
+let decimalPlaces = 9;
 
 const display = document.querySelector('.display');
 
@@ -65,7 +65,7 @@ function evaluate(button){
         haveNewInput = false;
     }
     operator = button.innerText;
-    display.innerText = stored;
+    display.innerText = (stored.length > 22) ? "Toooo Big!" : stored;
 
     console.log(`${stored} ${operator} ${operand}`);
     console.log('\n');
@@ -81,12 +81,14 @@ function equals(){
     else{
         stored = operate(operator, stored, operand);
     }
-    display.innerText = stored;
+    display.innerText = (stored.length > 22) ? "Toooo Big!" : stored;
+
     console.log(`${stored} ${operator} ${operand}`);
     console.log('\n');
 }
 
 function addDigits(button){
+    haveNewInput = true;
     if (startNewNumber){
         display.innerText = button.innerText;
         startNewNumber = false;
@@ -94,7 +96,6 @@ function addDigits(button){
     else {
         display.innerText += button.innerText;
     }
-    haveNewInput = true;
 }
 
 function clearDisplay(){
@@ -102,6 +103,7 @@ function clearDisplay(){
     stored = null;
     operand = null;
     operator = null;
+    startNewNumber = false;
     haveNewInput = false;
 }
 
