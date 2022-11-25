@@ -57,10 +57,6 @@ function addDigits(button){
 function addDecimal(){
     if (display.innerText.indexOf(".") == -1){
         display.innerText += ".";
-        console.log("there ya go sir");
-    }
-    else{
-        console.log("no STUPID");
     }
 }
 
