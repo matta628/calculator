@@ -20,7 +20,7 @@ function operate(op, op1, op2){
         case '-':
             result = subtract(op1,op2);
             break;
-        case 'x':
+        case '*':
             result = multiply(op1,op2);
             break;
         case '/':
@@ -104,7 +104,11 @@ function equals(){
     console.log('\n');
 }
 
-
+function backspace(){
+    if (display.innerText !== ''){
+        display.innerText = display.innerText.substring(0, display.innerText.length-1);
+    }
+}
 
 function clearDisplay(){
     display.innerText = '';
@@ -139,6 +143,16 @@ equalsButton.addEventListener('click', () => {
     equals();
 });
 
+const deleteButton = document.querySelector('#delete');
+deleteButton.addEventListener('click', () => {
+    backspace();
+})
+
+const clearButton = document.querySelector('#clear');
+clearButton.addEventListener('click', () => {
+    clearDisplay();
+});
+
 document.addEventListener('keydown', event => {
     console.log(event);
     digitButtons.forEach(button => {
@@ -155,13 +169,12 @@ document.addEventListener('keydown', event => {
         }
     })
 
+    if (event.key == 'Backspace') backspace();
+
     if (event.key == '=') equals();
 });
 
-const clearButton = document.querySelector('#clear');
-clearButton.addEventListener('click', () => {
-    clearDisplay();
-});
+
 
 
 
