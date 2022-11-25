@@ -139,6 +139,25 @@ equalsButton.addEventListener('click', () => {
     equals();
 });
 
+document.addEventListener('keydown', event => {
+    console.log(event);
+    digitButtons.forEach(button => {
+        if (event.key == button.innerText){
+            addDigits(button);
+        }
+    })
+
+    if (event.key == '.') addDecimal();
+
+    operatorButtons.forEach(button => {
+        if (event.key == button.innerText){
+            evaluate(button);
+        }
+    })
+
+    if (event.key == '=') equals();
+});
+
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     clearDisplay();
