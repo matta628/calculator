@@ -88,6 +88,11 @@ function evaluate(button){
     console.log('\n');
 }
 
+function negate(){
+    console.log("urrrrhhh");
+    display.innerText = -1 * +display.innerText;
+}
+
 function equals(){
     startNewNumber = true;
     if (haveNewInput){
@@ -136,6 +141,11 @@ operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
         evaluate(button);
     })
+});
+
+const negateButton = document.querySelector('#negate');
+negateButton.addEventListener('click', () => {
+    negate();
 });
 
 const equalsButton = document.querySelector('#equals');

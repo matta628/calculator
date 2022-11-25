@@ -14,7 +14,7 @@ body{
     font-family : 'Courier New', Courier, monospace;
 }
 .calculator{
-    min-height: 200px
+    min-height: 200px;
     height: 50%;
     width: 30%;
     background-color : #001253;
