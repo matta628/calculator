@@ -43,6 +43,27 @@ let decimalPlaces = 9;
 
 const display = document.querySelector('.display');
 
+function addDigits(button){
+    haveNewInput = true;
+    if (startNewNumber){
+        display.innerText = button.innerText;
+        startNewNumber = false;
+    }
+    else {
+        display.innerText += button.innerText;
+    }
+}
+
+function addDecimal(){
+    if (display.innerText.indexOf(".") == -1){
+        display.innerText += ".";
+        console.log("there ya go sir");
+    }
+    else{
+        console.log("no STUPID");
+    }
+}
+
 function roundedResults(lhs){
     if (Math.round(+lhs * 10) / 10 === +lhs || typeof lhs != "number"){
         return lhs;
@@ -87,16 +108,7 @@ function equals(){
     console.log('\n');
 }
 
-function addDigits(button){
-    haveNewInput = true;
-    if (startNewNumber){
-        display.innerText = button.innerText;
-        startNewNumber = false;
-    }
-    else {
-        display.innerText += button.innerText;
-    }
-}
+
 
 function clearDisplay(){
     display.innerText = '';
@@ -106,6 +118,18 @@ function clearDisplay(){
     startNewNumber = false;
     haveNewInput = false;
 }
+
+const digitButtons = document.querySelectorAll('button.digit');
+digitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        addDigits(button);
+    });
+});
+
+const decimalButton = document.querySelector('#decimal');
+decimalButton.addEventListener('click', () => {
+    addDecimal();
+});
 
 const operatorButtons = document.querySelectorAll('button.operator');
 operatorButtons.forEach(button => {
@@ -119,17 +143,12 @@ equalsButton.addEventListener('click', () => {
     equals();
 });
 
-const digitButtons = document.querySelectorAll('button.digit');
-digitButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        addDigits(button);
-    });
-});
-
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     clearDisplay();
 });
+
+
 
 
 
