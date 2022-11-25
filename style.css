@@ -14,15 +14,18 @@ body{
     font-family : 'Courier New', Courier, monospace;
 }
 .calculator{
-    height: 60%;
+    min-height: 200px
+    height: 50%;
     width: 30%;
     background-color : #001253;
-    border: 10px solid #001253;
+    border: 20px solid #001253;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap : 5px;
 }
 .display {
+    min-height: 30px;
     font-size: 2.4vw;
     font-weight: 900;
     background-color :#3E6D9C;
@@ -45,6 +48,9 @@ body{
     gap: 10px;
 }
 button {
+    box-sizing: border-box;
+    width: 30px;
+    height: auto;
     font-size: 2.4vw;
     font-weight: 900;
     background-color: #FD841F;

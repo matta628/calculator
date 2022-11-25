@@ -25,7 +25,6 @@ function operate(op, op1, op2){
             break;
         case '/':
             result = (op2 === 0) ? "[REDACTED]" : divide(op1,op2);
-//            result = divide(op1,op2);
             break;
         default:
             result = "";
@@ -35,7 +34,7 @@ function operate(op, op1, op2){
 }
 
 let startNewNumber = false;
-let haveNewInput = false; //redundant?
+let haveNewInput = false;
 let stored = null;
 let operand = null;
 let operator = null;
@@ -44,6 +43,7 @@ let decimalPlaces = 9;
 const display = document.querySelector('.display');
 
 function addDigits(button){
+    if (display.innerText.length >= 22) return;
     haveNewInput = true;
     if (startNewNumber){
         display.innerText = button.innerText;
@@ -169,9 +169,11 @@ document.addEventListener('keydown', event => {
         }
     })
 
+    if (event.key == '=') equals();
+
     if (event.key == 'Backspace') backspace();
 
-    if (event.key == '=') equals();
+    if (event.key == 'c') clearDisplay();
 });
 
 
